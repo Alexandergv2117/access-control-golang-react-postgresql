@@ -1,0 +1,20 @@
+version: '3.8'
+
+name: access-control-app
+
+networks:
+  access-control-app-network:
+    driver: bridge
+
+services:
+  postgres:
+    image: postgres:16.2
+    container_name: access-control-app-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: access_control_db
+    ports:
+      - 5432:5432
+    networks:
+      - access-control-app-network
