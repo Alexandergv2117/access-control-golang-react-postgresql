@@ -23,7 +23,7 @@ services:
     container_name: access-control-app-pgadmin
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: "admin@store.com"
+      PGADMIN_DEFAULT_EMAIL: "admin@access-control.com"
       PGADMIN_DEFAULT_PASSWORD: "admin"
     ports:
       - 8080:80
