@@ -3,6 +3,7 @@ package db
 import (
 	"fmt"
 	"log"
+	"strconv"
 
 	"github.com/Alexandergv2117/access-control-golang-react-postgresql/config"
 	"gorm.io/driver/postgres"
@@ -13,11 +14,11 @@ var DB *gorm.DB
 
 func DBConnection() {
 	DSN := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s",
-		config.GetEnv("DB_HOST"),
-		config.GetEnv("DB_USERNAME"),
-		config.GetEnv("DB_PASSWORD"),
-		config.GetEnv("DB_NAME"),
-		config.GetEnv("DB_PORT"),
+		config.AppConfig.DBHost,
+		config.AppConfig.DBUsername,
+		config.AppConfig.DBPassword,
+		config.AppConfig.DBName,
+		strconv.Itoa(config.AppConfig.DBPort),
 	)
 
 	var error error

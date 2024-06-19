@@ -32,5 +32,7 @@ func main() {
 
 	fmt.Println("Server running on port:", config.AppConfig.Port)
 
-	http.ListenAndServe(":"+config.AppConfig.Port, r)
+	host := fmt.Sprintf(":%d", config.AppConfig.Port)
+
+	http.ListenAndServe(host, r)
 }
