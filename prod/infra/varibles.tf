@@ -61,9 +61,3 @@ variable "db_port" {
   default     = 5432
   description = "Database port"
 }
-
-variable "secret_manager_name" {
-  type        = string
-  default     = "access_controll_prod_secret"
-  description = "Name of the secret manager"
-}

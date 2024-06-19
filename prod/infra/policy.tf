@@ -1,5 +1,5 @@
 resource "aws_iam_policy" "secrets_manager_policy" {
-  name        = "SecretsManagerPolicy"
+  name        = "${var.server_name}-secrets-manager-policy"
   description = "Policy to allow access to Secrets Manager"
   policy      = jsonencode({
     Version = "2012-10-17",

@@ -30,6 +30,6 @@ resource "aws_db_instance" "db" {
   db_subnet_group_name = aws_db_subnet_group.db_subnet_group.name
 
   tags = {
-    Name = var.db_name
+    Name = "${var.server_name}-db-instance"
   }
 }
