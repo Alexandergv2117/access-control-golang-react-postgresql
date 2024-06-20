@@ -1,0 +1,44 @@
+---
+- name: Create new virtual host
+  hosts: ubuntu
+  become: true
+  vars:
+    server_name: "{{ server_name }}"
+    config_src: "{{ config_src }}"
+    api_port: "{{ api_port }}"
+
+  tasks:
+    - name: Create virtual host configuration file
+      template:
+        src: "{{ config_src }}"
+        dest: "/etc/nginx/sites-available/{{ server_name }}"
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Enable virtual host configuration
+      file:
+        src: "/etc/nginx/sites-available/{{ server_name }}"
+        dest: "/etc/nginx/sites-enabled/{{ server_name }}"
+        state: link
+
+    - name: Remove default virtual host configuration
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+      ignore_errors: yes
+
+    - name: Test NGINX configuration
+      command: nginx -t
+      register: nginx_test
+      ignore_errors: yes
+
+    - name: Debug NGINX test
+      debug:
+        msg: "{{ nginx_test.stdout }}"
+
+    - name: Restart NGINX service
+      service:
+        name: nginx
+        state: restarted
+      when: nginx_test.rc == 0
