@@ -1,0 +1,33 @@
+---
+- name: Remove api service
+  hosts: ubuntu
+  become: yes
+
+  tasks:
+    - name: Stop myapi service
+      systemd:
+        name: myapi
+        state: stopped
+
+    - name: Disable myapi service
+      systemd:
+        name: myapi
+        enabled: no
+
+    - name: Remove myapi service file
+      file:
+        path: /etc/systemd/system/myapi.service
+        state: absent
+
+    - name: Reload systemd
+      command: systemctl daemon-reload
+
+    - name: Remove Go binary
+      file:
+        path: /usr/local/bin/myapi
+        state: absent
+
+    - name: Remove .env file
+      file:
+        path: /usr/local/bin/.env
+        state: absent
