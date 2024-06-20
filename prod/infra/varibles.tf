@@ -38,6 +38,42 @@ variable "db_instance_type" {
   description = "Database instance type"
 }
 
+variable "db_engine" {
+  type        = string
+  default     = "postgres"
+  description = "Database engine"
+}
+
+variable "db_engine_version" {
+  type        = string
+  default     = "16.2"
+  description = "Database engine version"
+}
+
+variable "db_storage_type" {
+  type        = string
+  default     = "gp2"
+  description = "Database storage type"
+}
+
+variable "db_storage_size" {
+  type        = number
+  default     = 20
+  description = "Database storage size in GB"
+}
+
+variable "db_skip_final_snapshot" {
+  type        = bool
+  default     = true
+  description = "Skip final snapshot"
+}
+
+variable "db_publicly_accessible" {
+  type        = bool
+  default     = false
+  description = "Database publicly accessible"
+}
+
 variable "db_username" {
   type        = string
   default     = "postgres"

@@ -1,8 +1,8 @@
 resource "aws_db_subnet_group" "db_subnet_group" {
   name       = "${var.server_name}-db-subnet-group"
   subnet_ids = [
-    aws_subnet.subnet_1.id,
-    aws_subnet.subnet_db.id
+    aws_subnet.subnet_db_1.id,
+    aws_subnet.subnet_db_2.id
   ]
 
   tags = {
@@ -11,17 +11,17 @@ resource "aws_db_subnet_group" "db_subnet_group" {
 }
 
 resource "aws_db_instance" "db" {
-  allocated_storage    = 20
-  storage_type         = "gp2"
-  engine               = "postgres"
-  engine_version       = "16.2"
+  allocated_storage    = var.db_storage_size
+  storage_type         = var.db_storage_type
+  engine               = var.db_engine
+  engine_version       = var.db_engine_version
   instance_class       = var.db_instance_type
   db_name              = var.db_name
   username             = var.db_username
   password             = var.db_password
   port                 = var.db_port
-  skip_final_snapshot  = true
-  publicly_accessible  = true
+  skip_final_snapshot  = var.db_skip_final_snapshot
+  publicly_accessible  = var.db_publicly_accessible
 
   vpc_security_group_ids = [
     aws_security_group.security_group_db.id
