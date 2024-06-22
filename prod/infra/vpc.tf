@@ -9,3 +9,11 @@ resource "aws_vpc" "vpc" {
     Name = "${var.server_name}-vpc"
   }
 }
+
+resource "aws_vpc_endpoint" "secretsmanager" {
+  vpc_id            = aws_vpc.vpc.id
+  service_name      = "com.amazonaws.${var.region}.secretsmanager"
+  vpc_endpoint_type = "Interface"
+  subnet_ids        = [aws_subnet.private_subnet_1.id]
+  security_group_ids = [aws_security_group.security_group_ec2.id]
+}
