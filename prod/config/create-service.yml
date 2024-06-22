@@ -3,7 +3,7 @@
   hosts: ubuntu
   become: yes
   vars:
-    binary_source: "./myapi"
+    binary_source: "../../api/myapi"
     env_source: "./.env"
     service_source: "./myapi.service"
 
