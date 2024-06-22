@@ -24,11 +24,13 @@ func main() {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/", routes.HomeHandler).Methods("GET")
-	r.HandleFunc("/user", routes.GetUsersHandler).Methods("GET")
-	r.HandleFunc("/user/{id}", routes.GetUserHandler).Methods("GET")
-	r.HandleFunc("/user", routes.CreateUserHandler).Methods("POST")
-	r.HandleFunc("/user/{id}", routes.DeleteUserHandler).Methods("DELETE")
+	api := r.PathPrefix("/api").Subrouter()
+
+	api.HandleFunc("/", routes.HomeHandler).Methods("GET")
+	api.HandleFunc("/user", routes.GetUsersHandler).Methods("GET")
+	api.HandleFunc("/user/{id}", routes.GetUserHandler).Methods("GET")
+	api.HandleFunc("/user", routes.CreateUserHandler).Methods("POST")
+	api.HandleFunc("/user/{id}", routes.DeleteUserHandler).Methods("DELETE")
 
 	fmt.Println("Server running on port:", config.AppConfig.Port)
 
