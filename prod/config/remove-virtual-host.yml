@@ -1,0 +1,24 @@
+---
+- name: Remove virtual host
+  hosts: ubuntu
+  become: true
+  vars:
+    server_name: "{{ server_name }}"
+
+  tasks:
+    - name: Remove virtual host configuration file
+      file:
+        path: "/etc/nginx/sites-available/{{ server_name }}"
+        state: absent
+      ignore_errors: yes
+
+    - name: Remove symbolic link from sites-enabled
+      file:
+        path: "/etc/nginx/sites-enabled/{{ server_name }}"
+        state: absent
+      ignore_errors: yes
+    
+    - name: Restart NGINX service
+      service:
+        name: nginx
+        state: restarted

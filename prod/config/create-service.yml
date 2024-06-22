@@ -1,0 +1,36 @@
+---
+- name: Config api service
+  hosts: ubuntu
+  become: yes
+  vars:
+    binary_source: "../../api/myapi"
+    env_source: "./.env"
+    service_source: "./myapi.service"
+
+  tasks:
+    - name: Upload Go binary
+      copy:
+        src: "{{ binary_source }}"
+        dest: /usr/local/bin/myapi
+        mode: '0755'
+
+    - name: Upload .env file
+      copy:
+        src: "{{ env_source }}"
+        dest: /usr/local/bin/.env
+        mode: '0644'
+
+    - name: Upload systemd service file
+      copy:
+        src: "{{ service_source }}"
+        dest: /etc/systemd/system/myapi.service
+        mode: '0644'
+
+    - name: Reload systemd
+      command: systemctl daemon-reload
+
+    - name: Enable myapi service
+      systemd:
+        name: myapi
+        enabled: yes
+        state: started

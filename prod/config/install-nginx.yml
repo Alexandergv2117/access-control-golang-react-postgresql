@@ -1,0 +1,17 @@
+---
+- name: Install Nginx
+  hosts: ubuntu
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Check if nginx is running
+      command: systemctl status nginx
+      register: nginx_status

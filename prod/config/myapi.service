@@ -1,0 +1,13 @@
+[Unit]
+Description=My Go API
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/myapi
+EnvironmentFile=/usr/local/bin/.env
+Restart=always
+User=ubuntu
+WorkingDirectory=/usr/local/bin
+
+[Install]
+WantedBy=multi-user.target
