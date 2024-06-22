@@ -31,6 +31,16 @@ jobs:
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa.pem
         chmod 600 ~/.ssh/id_rsa.pem
         ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pem $SSH_USERNAME@$SSH_HOST echo "SSH connection successful"
+
+    - name: Upload to Server
+      if: ${{ success() }}
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_HOST: ${{ secrets.SSH_HOST }}
+        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+      run: |
+        scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pem api/myapi $SSH_USERNAME@$SSH_HOST:/tmp/myapi
+        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pem $SSH_USERNAME@$SSH_HOST 'sudo mv /tmp/myapi /usr/local/bin/myapi && sudo systemctl restart myapi.service'
       
     - name: Cleanup SSH Key
       if: always()
