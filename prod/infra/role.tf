@@ -12,4 +12,8 @@ resource "aws_iam_role" "ec2_role" {
       }
     ]
   })
+
+  tags = {
+    Name = "${var.server_name}-ec2-role"
+  }
 }

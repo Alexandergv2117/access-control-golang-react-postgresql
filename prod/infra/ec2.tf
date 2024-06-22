@@ -33,6 +33,6 @@ resource "aws_instance" "server" {
   vpc_security_group_ids = [aws_security_group.security_group_ec2.id]
 
   tags = {
-    Name = "${var.server_name}-instance"
+    Name = "${var.server_name}-ec2-instance"
   }
 }

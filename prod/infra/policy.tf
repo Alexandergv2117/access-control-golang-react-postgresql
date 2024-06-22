@@ -23,6 +23,6 @@ resource "aws_iam_role_policy_attachment" "secretsmanager_policy_attachment" {
 }
 
 resource "aws_iam_instance_profile" "instance_profile" {
-  name = "${var.server_name}-instance-profile"
+  name = "${var.server_name}-ec2-instance-profile"
   role = aws_iam_role.ec2_role.name
 }
