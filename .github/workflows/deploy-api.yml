@@ -3,7 +3,7 @@ name: Api Deployment
 on:
   push:
     branches:
-      - feat/deploy
+      - dev
 
 jobs:
 
