@@ -21,5 +21,19 @@ jobs:
     - name: Build
       run: cd api && go build -o myapi
 
-    - name: Show files
-      run: ls -la api
+    - name: Upload Go binary
+      env:
+        SSH_HOST: ${{ secrets.SSH_HOST  }}
+        SSH_USERNAME: ${{ secrets.SSH_USERNAME  }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY  }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa.pem
+        chmod 600 ~/.ssh/id_rsa.pem
+        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pem $SSH_USERNAME@$SSH_HOST echo "SSH connection successful"
+      
+    - name: Cleanup SSH Key
+      if: always()
+      run: |
+        rm -f ~/.ssh/id_rsa.pem
+        
