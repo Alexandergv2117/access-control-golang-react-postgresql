@@ -3,7 +3,7 @@ name: Deploy to AWS S3
 on :
   push:
     branches:
-      - feat/deploy-frontend
+      - dev
 
 jobs:
   avoid_reduncy:
