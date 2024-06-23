@@ -80,12 +80,6 @@ variable "db_username" {
   description = "Database username"
 }
 
-variable "db_password" {
-  type        = string
-  default     = "password"
-  description = "Database password"
-}
-
 variable "db_name" {
   type        = string
   default     = "access_controll_db_prod_postgres"

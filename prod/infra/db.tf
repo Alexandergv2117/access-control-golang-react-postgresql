@@ -18,7 +18,7 @@ resource "aws_db_instance" "db" {
   instance_class       = var.db_instance_type
   db_name              = var.db_name
   username             = var.db_username
-  password             = var.db_password
+  password             = random_string.generate_ramdom_password.result
   port                 = var.db_port
   skip_final_snapshot  = var.db_skip_final_snapshot
   publicly_accessible  = var.db_publicly_accessible

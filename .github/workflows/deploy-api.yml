@@ -19,7 +19,7 @@ jobs:
         go-version: '1.22.0'
 
     - name: Build
-      run: cd api && go build -o myapi
+      run: cd api && go build -o myapi ./cmd
 
     - name: Upload to Server and Restart Service
       if: ${{ success() }}
