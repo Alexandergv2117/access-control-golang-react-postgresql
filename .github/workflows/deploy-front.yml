@@ -1,4 +1,4 @@
-name: Deploy to AWS S3
+name: Deploy Frontend
 
 on :
   push:
@@ -7,6 +7,7 @@ on :
 
 jobs:
   avoid_reduncy:
+    if: startsWith(github.event.head_commit.message, 'deploy(frontend):')
     runs-on: ubuntu-latest
     permissions:
       actions: write
