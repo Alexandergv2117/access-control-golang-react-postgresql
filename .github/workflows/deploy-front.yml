@@ -80,7 +80,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa.pem
           chmod 600 ~/.ssh/id_rsa.pem
-          scp -o StrictHostKeyChecking=no -i -r ~/.ssh/id_rsa.pem frontend/dist/. $SSH_USERNAME@$SSH_HOST:/tmp/dist
+          scp -o StrictHostKeyChecking=no -r -i ~/.ssh/id_rsa.pem frontend/dist/. $SSH_USERNAME@$SSH_HOST:/tmp/dist
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pem $SSH_USERNAME@$SSH_HOST 'sudo mv /tmp/dist/* /var/www/html/'
 
       - name: Cleanup SSH Key
