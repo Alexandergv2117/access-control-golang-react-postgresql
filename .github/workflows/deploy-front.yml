@@ -78,10 +78,12 @@ jobs:
           SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
         run: |
           mkdir -p ~/.ssh
+          mkdir -p /tmp/dist
           sudo mkdir -p /var/www/html/dist/
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa.pem
           chmod 600 ~/.ssh/id_rsa.pem
-          scp -o StrictHostKeyChecking=no -r -i ~/.ssh/id_rsa.pem frontend/dist/* $SSH_USERNAME@$SSH_HOST:/var/www/html/dist/
+          scp -o StrictHostKeyChecking=no -r -i ~/.ssh/id_rsa.pem frontend/dist/* $SSH_USERNAME@$SSH_HOST:/tmp/dist
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pem $SSH_USERNAME@$SSH_HOST "sudo cp -r /tmp/dist/* /var/www/html/dist/"
 
       - name: Cleanup SSH Key
         if: always()
